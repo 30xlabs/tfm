@@ -61,8 +61,7 @@
 
 /* Neumorphic styles */
 .neumorphic {
-  box-shadow: 12px 12px 24px 0 rgba(0, 0, 0, 0.2),
-    -12px -12px 24px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: var(--theme-ui-colors-bs);
   border-radius: 20px;
   overflow: hidden;
 }
@@ -114,6 +113,6 @@
   padding: 4px;
 }
 
-button{
+button {
   cursor: pointer;
 }

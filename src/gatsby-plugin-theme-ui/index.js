@@ -26,6 +26,7 @@ const theme = {
     border: "#283845ff",
     background: "#b8b08d4d",
     text: "#2d2c3df2",
+    bs: "12px 12px 24px 0 rgba(0, 0, 0, 0.2), -12px -12px 24px 0 rgba(255, 255, 255, 0.5)",
     modes: {
       dark: {
         primary: "#00000080",
@@ -34,6 +35,7 @@ const theme = {
         border: "#283845ff",
         background: "#000000d9",
         text: "#ffffffa6",
+        bs: "12px 12px 24px 0 rgba(0, 0, 0, 0.2), -12px -12px 24px 0 rgba(50, 50, 50, 0.5)",
       },
     },
   },
