@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Neucha&display=swap");
+
+/* Shared styles */
+.logo-text {
+  letter-spacing: 2px;
+}
+
+/* Navigation styles */
+.nav-item,
+.sketch-border {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.sketch-border {
+  background: transparent;
+}
+
+.active-tab,
+.nav-item:hover {
+  border-color: var(--theme-ui-colors-accent);
+  color: var(--theme-ui-colors-accent) !important;
+}
+
+/* Typewriter styles */
+.typewriter .typing-text {
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+}
+
+@media only screen and (min-width: 600px) {
+  .typewriter .typing-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.15em solid orange;
+    animation: typing 8s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+
+/* Neumorphic styles */
+.neumorphic {
+  box-shadow: 12px 12px 24px 0 rgba(0, 0, 0, 0.2),
+    -12px -12px 24px 0 rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.variation2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.variation2 span {
+  display: flex;
+  align-items: center;
+}
+
+/* Selection styles */
+::-moz-selection {
+  color: var(--theme-ui-colors-secondary);
+  background: var(--theme-ui-colors-primary);
+}
+
+::selection {
+  color: var(--theme-ui-colors-secondary);
+  background: var(--theme-ui-colors-primary);
+}
+
+/* Blog card styles */
+.blog-card-title,
+.blog-card-content {
+  display: -webkit-box;
+  max-width: 400px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blog-card-content {
+  -webkit-line-clamp: 5;
+}
+
+.blogCard {
+  display: flex;
+  flex-direction: column !important;
+  border: 1px solid;
+  border-color: primary;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 4px;
+}
+
+button{
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+[
+    {
+        "label": "Home",
+        "route": "/"
+    },
+    {
+        "label": "Series",
+        "route": "/series"
+    },
+    {
+        "label": "Articles",
+        "route": "/articles"
+    },
+    {
+        "label": "News letter",
+        "route": "/news-letter"
+    },
+    {
+        "label": "About",
+        "route": "/about"
+    }
+]
