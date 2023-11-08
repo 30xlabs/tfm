@@ -1,22 +1,32 @@
 [
     {
         "label": "Home",
-        "route": "/"
+        "route": "/",
+        "pageTitle": "TFM - The frontend master",
+        "description": "Home page of TFM"
     },
     {
         "label": "Series",
-        "route": "/series"
+        "route": "/series",
+        "pageTitle": "Series",
+        "description": "Series page of TFM - The frontend master"
     },
     {
         "label": "Articles",
-        "route": "/articles"
+        "route": "/articles",
+        "pageTitle": "Articles",
+        "description": "Articles page of TFM - The frontend master"
     },
     {
         "label": "News letter",
-        "route": "/news-letter"
+        "route": "/news-letter",
+        "pageTitle": "News letter",
+        "description": "News letter page of TFM - The frontend master"
     },
     {
         "label": "About",
-        "route": "/about"
+        "route": "/about",
+        "pageTitle": "About - The frontend master",
+        "description": "About page of TFM - The frontend master"
     }
 ]

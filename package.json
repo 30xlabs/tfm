@@ -1,32 +1,43 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "tfm",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "TFM - The frontend master",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Saketh kowtha",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@mdx-js/react": "^3.0.0",
     "@theme-ui/mdx": "^0.16.1",
     "firebase": "^10.5.2",
     "gatsby": "^5.12.4",
-    "gatsby-plugin-image": "^3.12.0",
-    "gatsby-plugin-manifest": "^5.12.0",
-    "gatsby-plugin-mdx": "^5.12.3",
-    "gatsby-plugin-sharp": "^5.12.0",
-    "gatsby-plugin-theme-ui": "^0.16.1",
-    "gatsby-transformer-sharp": "^5.12.0",
+    "prismjs": "^1.29.0",
+    "ramda": "^0.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sanitize-html": "^2.11.0",
     "theme-ui": "^0.16.1"
   },
   "devDependencies": {
     "clsx": "^2.0.0",
     "gatsby-source-filesystem": "^5.12.1",
+    "gatsby-plugin-image": "^3.12.0",
+    "gatsby-plugin-manifest": "^5.12.0",
+    "gatsby-plugin-mdx": "^5.12.3",
+    "gatsby-plugin-sharp": "^5.12.0",
+    "gatsby-plugin-theme-ui": "^0.16.1",
+    "gatsby-remark-copy-linked-files": "^6.12.0",
+    "gatsby-remark-images": "^7.12.3",
+    "gatsby-remark-prismjs": "^7.12.0",
+    "gatsby-remark-responsive-iframe": "^6.12.0",
+    "gatsby-remark-smartypants": "^6.12.0",
+    "gatsby-transformer-json": "^5.12.0",
+    "gatsby-transformer-remark": "^6.12.3",
+    "gatsby-transformer-sharp": "^5.12.3",
     "prettier": "^2.8.8"
   },
   "keywords": [
-    "gatsby"
+    "tfm",
+    "the frontend master"
   ],
   "license": "0BSD",
   "scripts": {

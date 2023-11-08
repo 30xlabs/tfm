@@ -60,10 +60,27 @@
 }
 
 /* Neumorphic styles */
+
 .neumorphic {
-  box-shadow: var(--theme-ui-colors-bs);
-  border-radius: 20px;
   overflow: hidden;
+}
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --theme-ui-colors-bs: 3px 3px 6px 0 rgba(0, 0, 0, 0.2),
+      -3px -3px 6px 0 rgba(255, 255, 255, 0.05);
+  }
+  .neumorphic {
+    box-shadow: var(--theme-ui-colors-bs);
+    border-radius: 12px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .neumorphic {
+    box-shadow: var(--theme-ui-colors-bs);
+    border-radius: 20px;
+  }
 }
 
 .variation2 {

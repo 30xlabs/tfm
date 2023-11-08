@@ -1,7 +1,7 @@
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import { Container, useThemeUI, Link } from "theme-ui"
-import Description from "../components/description"
+import { useStaticQuery, graphql, navigate } from "gatsby"
+import { Container, useThemeUI, Link, Button } from "theme-ui"
+import Description from "../components/typeWriter"
 import MainIcon from "../assets/mainIcon"
 
 const Header = ({ description }) => (
@@ -15,15 +15,17 @@ const Header = ({ description }) => (
 
 const Footer = () => (
   <footer style={{ position: "absolute", bottom: "36px", textAlign: "center", width: "100%" }}>
-    <Link
-      href="/news-letter" to="" sx={{
+    <Button
+      as={'a'}
+      onClick={() => navigate(`/news-letter`)}
+      sx={{
         bg: "primary",
         p: "4px",
         color: "accent"
       }}>
       Subscribe for a newsletter
-    </Link>
-  </footer>
+    </Button>
+  </footer >
 );
 
 const Index = () => {

@@ -1,4 +1,6 @@
-import React from "react"
+import React, { memo } from "react"
+
+//Components
 import { Card, Container, Heading, Text } from "theme-ui"
 
 const Description = ({ description }) => (
@@ -32,4 +34,4 @@ const Description = ({ description }) => (
   </Container>
 )
 
-export default Description
+export default memo(Description)

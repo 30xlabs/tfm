@@ -1,40 +1,28 @@
-import React, { useState } from "react"
-import { Box, Close, Flex, Heading, MenuButton, Text } from "theme-ui"
-import navItems from "../content/navItems/index.json"
-import NavMenu from "./NavMenu"
+import React, { memo, useState } from "react"
 
-const Logo = ({ title }) => (
-  <Heading>
-    {title.split(" ").map(word => (
-      <span key={word}>
-        <Text
-          className="logo-text"
-          color="accent"
-          sx={{ marginLeft: "8px", display: "inline-block" }}
-        >
-          {word[0]}
-        </Text>
-        <Text className="logo-text" sx={{ display: "inline" }}>
-          {word.slice(1)}
-        </Text>
-      </span>
-    ))}
-  </Heading>
-)
+//Components
+import { Box, Flex } from "theme-ui"
+import NavMenu from "./navMenu"
+import MobileMenuButton from "./MobileMenuButton"
+import AppLogo from "./AppLogo"
 
-const MobileMenuButton = ({ showMobileMenu, toggleMobileMenu }) =>
-  showMobileMenu ? (
-    <Close m={2} onClick={toggleMobileMenu} sx={mobileMenuButtonStyles} />
-  ) : (
-    <MenuButton m={2} onClick={toggleMobileMenu} sx={mobileMenuButtonStyles} />
-  )
-
-const mobileMenuButtonStyles = {
-  display: ["inline-block", "inline-block", "none"],
-  alignItems: "center",
-}
+//Hooks
+import { useStaticQuery, graphql } from "gatsby"
 
 const Header = ({ title, currentTab, themeBtn }) => {
+  const {
+    allJson: { nodes: navItems },
+  } = useStaticQuery(graphql`
+    query NavItems {
+      allJson(filter: { route: { ne: null } }) {
+        nodes {
+          label
+          route
+        }
+      }
+    }
+  `)
+
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   const toggleMobileMenu = () => {
@@ -44,7 +32,7 @@ const Header = ({ title, currentTab, themeBtn }) => {
   return (
     <Flex bg={"primary"} color="secondary">
       <Box p={2} sx={logoContainerStyles}>
-        <Logo title={title} />
+        <AppLogo title={title} />
       </Box>
       <Box p={2} sx={menuContainerStyles}>
         <NavMenu
@@ -91,4 +79,4 @@ const mobileMenuStyles = {
   zIndex: 9999,
 }
 
-export default Header
+export default memo(Header)
