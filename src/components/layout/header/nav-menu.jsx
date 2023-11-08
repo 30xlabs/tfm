@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import { Flex } from "theme-ui"
 
 //Components
-import NavMenuItem from "./navMenuItem"
+import NavMenuItem from "./nav-menu-item"
 
 function NavMenu({ navItems, currentTab, vertical, themeBtn }) {
   return (

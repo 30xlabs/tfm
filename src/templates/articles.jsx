@@ -2,7 +2,7 @@ import React from "react"
 
 //components
 import { Box } from "theme-ui"
-import ArticlesList from "../components/articlesList"
+import ArticlesList from "../components/articles-list"
 
 //helpers
 import { graphql } from "gatsby"

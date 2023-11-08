@@ -2,9 +2,9 @@ import React, { memo } from "react"
 
 //Components
 import { Box } from "theme-ui"
-import ThumbnailImage from "./thumbnailImage"
-import ThumbnailBody from "./thumbnailBody"
-import ThumbnailLink from "./thumbnailLink"
+import ThumbnailImage from "./thumbnail-image"
+import ThumbnailBody from "./thumbnail-body"
+import ThumbnailLink from "./thumbnail-link"
 
 function ArticleThumbnail({ image, title, body, showLink, id, onClick }) {
   return (

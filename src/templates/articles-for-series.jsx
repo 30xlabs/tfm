@@ -2,7 +2,7 @@ import React, { memo } from "react"
 
 //Component
 import { Box } from "theme-ui"
-import ArticleList from "../components/articlesList"
+import ArticleList from "../components/articles-list"
 
 //hooks
 import { graphql } from "gatsby"

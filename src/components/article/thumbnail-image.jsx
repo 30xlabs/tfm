@@ -4,7 +4,7 @@ import React, { memo } from "react"
 import { MainImage } from "gatsby-plugin-image"
 
 //Icons
-import ArticleIcon from "../../assets/articleIcon"
+import ArticleIcon from "../../assets/article-icon"
 
 //Hooks
 import { useThemeUI } from "theme-ui"

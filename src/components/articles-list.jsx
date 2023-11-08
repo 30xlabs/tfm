@@ -2,7 +2,7 @@ import React, { memo, useCallback } from "react"
 
 //Components
 import { Grid, Box } from "theme-ui"
-import ArticleContainer from "./articleContainer"
+import ArticleContainer from "./article-container"
 
 //Helpers
 import { navigate } from "gatsby"

@@ -2,7 +2,7 @@ import React, { memo } from "react"
 
 //components
 import { Card, Paragraph, Text } from "theme-ui"
-import SubscriptionForm from "../components/SubscriptionForm"
+import SubscriptionForm from "../components/subscription-form"
 
 const NewsLetter = () => {
   return (

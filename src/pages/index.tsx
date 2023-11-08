@@ -1,8 +1,8 @@
 import * as React from "react"
 import { useStaticQuery, graphql, navigate } from "gatsby"
 import { Container, useThemeUI, Link, Button } from "theme-ui"
-import Description from "../components/typeWriter"
-import MainIcon from "../assets/mainIcon"
+import Description from "../components/type-writer"
+import MainIcon from "../assets/main-icon"
 
 const Header = ({ description }) => (
   <Container sx={{ padding: ["10%", "10%", "4%"], paddingTop: '2% !important', paddingBottom: '2% !important', width: ["80%", "80%", "680px"] }}>

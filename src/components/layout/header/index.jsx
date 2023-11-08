@@ -2,9 +2,9 @@ import React, { memo, useState } from "react"
 
 //Components
 import { Box, Flex } from "theme-ui"
-import NavMenu from "./navMenu"
-import MobileMenuButton from "./MobileMenuButton"
-import AppLogo from "./AppLogo"
+import NavMenu from "./nav-menu"
+import MobileMenuButton from "./mobile-menu-button"
+import AppLogo from "./app-logo"
 
 //Hooks
 import { useStaticQuery, graphql } from "gatsby"

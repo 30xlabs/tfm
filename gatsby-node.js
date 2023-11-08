@@ -58,7 +58,7 @@ exports.createPages = async ({ actions, graphql }) => {
   seriesList.forEach(series => {
     createPage({
       path: `/series/${series[0]}`,
-      component: require.resolve(`./src/templates/articlesForSeries.jsx`),
+      component: require.resolve(`./src/templates/articles-for-series.jsx`),
       context: { series: `/${capitalizeAndReplace(series[0])}/i` },
     })
   })
@@ -84,7 +84,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
     createPage({
       path: `/article/${article.id}`,
-      component: require.resolve(`./src/templates/blogPost.jsx`),
+      component: require.resolve(`./src/templates/article-post.jsx`),
       context,
     })
   })
