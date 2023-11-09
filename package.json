@@ -6,7 +6,6 @@
   "author": "Saketh kowtha",
   "dependencies": {
     "@emotion/react": "^11.11.1",
-    "@mdx-js/react": "^3.0.0",
     "@theme-ui/mdx": "^0.16.1",
     "firebase": "^10.6.0",
     "gatsby": "^5.12.9",
