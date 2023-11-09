@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useStaticQuery, graphql, navigate } from "gatsby"
-import { Container, useThemeUI, Link, Button } from "theme-ui"
+import { Container, useThemeUI, Button } from "theme-ui"
 import Description from "../components/type-writer"
 import MainIcon from "../assets/main-icon"
 

@@ -4,6 +4,7 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/
  */
 
+const { defaultTo, sum, map, prop } = require("ramda")
 const tagColorsData = require("./src/data/tag-colors")
 
 function capitalizeAndReplace(text) {
@@ -22,6 +23,9 @@ async function getSeriesList(graphql) {
         group(field: { frontmatter: { series: SELECT } }) {
           fieldValue
           totalCount
+          nodes {
+            timeToRead
+          }
         }
       }
     }
@@ -32,7 +36,19 @@ async function getSeriesList(graphql) {
 
   seriesData.forEach(element => {
     const key = element.fieldValue.toLowerCase()
-    seriesMap.set(key, (seriesMap.get(key) || 0) + element.totalCount)
+    const totalCount = sum([
+      defaultTo(0, seriesMap.get(key)?.totalCount),
+      element.totalCount,
+    ])
+    const timeToRead = sum([
+      defaultTo(0, seriesMap.get(key)?.timeToRead),
+      sum(map(prop("timeToRead"), element.nodes)),
+    ])
+
+    seriesMap.set(key, {
+      totalCount,
+      timeToRead,
+    })
   })
 
   return Array.from(seriesMap)
@@ -50,8 +66,8 @@ exports.createPages = async ({ actions, graphql }) => {
   const seriesList = await getSeriesList(graphql)
 
   createPage({
-    path: `/series`,
-    component: require.resolve(`./src/templates/series.jsx`),
+    path: `/series-list`,
+    component: require.resolve(`./src/templates/series-list.jsx`),
     context: { seriesList },
   })
 

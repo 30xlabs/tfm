@@ -92,6 +92,7 @@
 .variation2 span {
   display: flex;
   align-items: center;
+  backdrop-filter: blur(120px);
 }
 
 /* Selection styles */

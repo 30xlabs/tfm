@@ -6,6 +6,8 @@ import ArticleList from "../components/articles-list"
 
 //hooks
 import { graphql } from "gatsby"
+import Seo from "../components/seo"
+import { extractSubstring } from "../utils"
 
 const getArticleData = data =>
   data.allMarkdownRemark.edges.map(({ node }) => ({
@@ -23,13 +25,16 @@ const transformArticleData = data =>
     id: item.id,
   }))
 
-const SeriesItem = ({ data }) => {
+const SeriesItem = ({ data, pageContext }) => {
   const articleData = getArticleData(data)
   const items = transformArticleData(articleData)
+  const seriesName = extractSubstring(pageContext.series)
   return (
-    <Box sx={{ width: ["90%", "75%", "60%"], margin: "auto" }}>
-      <ArticleList items={items} />
-    </Box>
+    <Seo title={seriesName} description={`Series - ${seriesName}`}>
+      <Box sx={{ width: ["90%", "75%", "60%"], margin: "auto" }}>
+        <ArticleList items={items} />
+      </Box>
+    </Seo>
   )
 }
 

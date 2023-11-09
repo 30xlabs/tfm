@@ -10,8 +10,9 @@ function Tag({ tag, backgroundColor, color }) {
         backgroundColor,
         color,
         borderRadius: "default",
-        padding: "1",
+        padding: "2px",
         fontSize: "10px",
+        fontWeight: "bold",
       }}
     >
       #{tag}

@@ -52,22 +52,26 @@ function Layout({ children, location }) {
     </Button>
   )
 
+  const isArticle = currentTab.endsWith("article")
+  const isSeries = currentTab.endsWith("series")
+
   return (
     <>
-      <Seo title={pageTitle} description={description}>
-        <Container bg="muted">
-          <>
-            <Header
-              themeBtn={themeButton}
-              title={title}
-              currentTab={currentTab}
-            />
-            <Divider m={0} color="border" />
-            <div>{children}</div>
-            <Footer currentTab={currentTab} />
-          </>
-        </Container>
-      </Seo>
+      {!(isSeries || isArticle) && (
+        <Seo title={pageTitle} description={description} />
+      )}
+      <Container bg="muted">
+        <>
+          <Header
+            themeBtn={themeButton}
+            title={title}
+            currentTab={currentTab}
+          />
+          <Divider m={0} color="border" />
+          <div>{children}</div>
+          <Footer currentTab={currentTab} />
+        </>
+      </Container>
     </>
   )
 }

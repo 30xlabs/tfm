@@ -23,3 +23,12 @@ export async function insertNewsLetterRecord({ email, name }) {
   const dataRef = collection(db, "news-letter")
   await addDoc(dataRef, { name, email })
 }
+
+export function extractSubstring(input) {
+  const match = input.match(/\/(.*?)\//)
+  if (match && match[1]) {
+    return match[1]
+  } else {
+    return input // Return the original string if no match is found
+  }
+}

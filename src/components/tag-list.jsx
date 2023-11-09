@@ -4,7 +4,7 @@ import React, { memo } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 //components
-import { Box, Text } from "theme-ui"
+import { Box } from "theme-ui"
 
 //utils
 import { find, propEq, defaultTo, compose } from "ramda"
@@ -34,8 +34,7 @@ const TagList = ({ tags }) => {
   }
 
   return (
-    <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-      <Text>🏷️</Text>
+    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
       {tags.map(tag => {
         const { backgroundColor, color } = getColorForTag(tag)
         return (

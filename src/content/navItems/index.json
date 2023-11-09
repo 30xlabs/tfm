@@ -7,7 +7,7 @@
     },
     {
         "label": "Series",
-        "route": "/series",
+        "route": "/series-list",
         "pageTitle": "Series",
         "description": "Series page of TFM - The frontend master"
     },

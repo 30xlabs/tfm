@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react"
 
 //Components
-import { Box, Flex } from "theme-ui"
+import { Box, Card, Flex } from "theme-ui"
 import NavMenu from "./nav-menu"
 import MobileMenuButton from "./mobile-menu-button"
 import AppLogo from "./app-logo"
@@ -46,14 +46,14 @@ const Header = ({ title, currentTab, themeBtn }) => {
         toggleMobileMenu={toggleMobileMenu}
       />
       {showMobileMenu && (
-        <Box bg={"primary"} p={3} sx={mobileMenuStyles}>
+        <Card bg={"primary"} p={3} sx={mobileMenuStyles}>
           <NavMenu
             navItems={navItems}
             currentTab={currentTab}
             vertical
             themeBtn={themeBtn}
           />
-        </Box>
+        </Card>
       )}
     </Flex>
   )
@@ -77,6 +77,7 @@ const mobileMenuStyles = {
   right: "0",
   left: 0,
   zIndex: 9999,
+  backdropFilter: "blur(20px)",
 }
 
 export default memo(Header)
