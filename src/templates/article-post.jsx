@@ -1,13 +1,13 @@
 import React, { memo } from "react"
 
 //hooks
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 //hooks
 import { purifyHtml } from "../utils"
 
 //Components
-import { Box, Link, Container, Text } from "theme-ui"
+import { Box, Container, Text } from "theme-ui"
 import TagList from "../components/tag-list"
 import ProfileCard from "../components/profile-card"
 import { MainImage } from "gatsby-plugin-image"
@@ -26,7 +26,7 @@ const BlogPost = ({ data: { markdownRemark, previous, next } }) => {
       <Seo
         title={title}
         description={`${title} - published at ${publishedAt} - tags : ${tagList.join(
-          ","
+          ",",
         )}`}
       >
         <article>
@@ -88,13 +88,41 @@ const BlogPost = ({ data: { markdownRemark, previous, next } }) => {
           }}
         >
           <Container sx={{ width: "40%", marginRight: "10%" }}>
-            <Link hidden={!previous?.id} href={`/article/${previous?.id}`}>
-              <Text>&larr; Previous ({previous?.frontmatter?.title})</Text>
+            <Link
+              hidden={!previous?.id}
+              to={`/article/${previous?.id}`}
+              className="txt-decoration-none"
+            >
+              <Text
+                sx={{
+                  color: "accent",
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                &larr; Previous ({previous?.frontmatter?.title})
+              </Text>
             </Link>
           </Container>
           <Container sx={{ width: "40%" }}>
-            <Link hidden={!next?.id} href={`/article/${next?.id}`}>
-              <Text>&rarr; Next ({next?.frontmatter?.title})</Text>
+            <Link
+              hidden={!next?.id}
+              to={`/article/${next?.id}`}
+              className="txt-decoration-none"
+            >
+              <Text
+                sx={{
+                  color: "accent",
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                &rarr; Next ({next?.frontmatter?.title})
+              </Text>
             </Link>
           </Container>
         </Container>

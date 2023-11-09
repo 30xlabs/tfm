@@ -6,7 +6,7 @@ import NavMenuItem from "./nav-menu-item"
 
 function NavMenu({ navItems, currentTab, vertical, themeBtn }) {
   return (
-    <Flex as="nav" sx={{ flexDirection: vertical ? "column" : "row" }}>
+    <Flex as="nav" sx={{ flexDirection: vertical ? "column" : "row", justifyContent: 'center', alignItems: 'center' }}>
       {navItems.map(({ label, route, target }) => {
         const isActiveTab = route === currentTab
         return (
