@@ -65,8 +65,7 @@ module.exports = {
     {
       resolve: `gatsby-transformer-json`,
       options: {
-        typeName: ({ node, object, isArray }) =>
-          object.project ? `Project` : `Json`,
+        typeName: ({ object }) => (object.project ? `Project` : `Json`),
         path: `${__dirname}/src/content/series`,
       },
     },
@@ -76,15 +75,23 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `TFM - The Frontend master`,
+        description: `Hello, Welcome to TFM - The Frontend Master`,
         short_name: `TFM`,
+        lang: `en`,
         start_url: `/`,
-        background_color: `#663399`,
-        // This will impact how browsers show your PWA/website
-        // https://css-tricks.com/meta-theme-color-and-trickery/
-        theme_color: `#663399`,
-        display: `minimal-ui`,
+        background_color: `#ee4e4e`,
+        theme_color: `#ee4e4e`,
+        display: "standalone",
         icon: `src/assets/main-logo.svg`, // This path is relative to the root of the site.
+        crossOrigin: `use-credentials`, // `use-credentials` or `anonymous`
       },
     },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/*`],
+      },
+    },
+    "gatsby-plugin-react-helmet",
   ],
 }
