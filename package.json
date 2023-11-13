@@ -9,6 +9,7 @@
     "@theme-ui/mdx": "^0.16.1",
     "firebase": "^10.6.0",
     "gatsby": "^5.12.9",
+    "gatsby-plugin-feed": "^5.12.3",
     "prismjs": "^1.29.0",
     "ramda": "^0.29.1",
     "react": "^18.2.0",

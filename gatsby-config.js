@@ -93,5 +93,53 @@ module.exports = {
       },
     },
     "gatsby-plugin-react-helmet",
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              /* contents go here */
+              return allMarkdownRemark.nodes.map(node => {
+                const x = Object.assign({}, node.frontmatter, {
+                  description: node.excerpt,
+                  date: node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  custom_elements: [
+                    { "content:encoded": node.html, tags: node.tags },
+                  ],
+                })
+
+                console.log(x)
+                return x
+              })
+            },
+            query: `
+            {
+              allMarkdownRemark(
+                sort: { order: DESC, fields: [frontmatter___date] },
+              ) {
+                nodes {
+                  excerpt
+                  html
+                  fields {
+                    slug
+                  }
+                  frontmatter {
+                    title
+                    date
+                  }
+                }
+              }
+            }
+          `,
+            output: "/rss.xml",
+            title: "The frontend master RSS feed",
+            language: `en-US`,
+          },
+        ],
+      },
+    },
   ],
 }
