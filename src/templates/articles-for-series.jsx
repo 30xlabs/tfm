@@ -7,23 +7,13 @@ import ArticleList from "../components/articles-list"
 //hooks
 import { graphql } from "gatsby"
 import Seo from "../components/seo"
-import { extractSubstring } from "../utils"
 
-const getArticleData = data =>
-  data.allMarkdownRemark.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    id: node.id,
-    body: node.excerpt,
-  }))
-
-const transformArticleData = data =>
-  data.map(item => ({
-    image: item.coverImg,
-    title: item.title,
-    body: item.body,
-    showLink: true,
-    id: item.id,
-  }))
+//Utils
+import {
+  extractSubstring,
+  getArticleData,
+  transformArticleData,
+} from "../utils"
 
 const SeriesItem = ({ data, pageContext }) => {
   const articleData = getArticleData(data)
@@ -42,7 +32,29 @@ export default memo(SeriesItem)
 
 export const query = graphql`
   query Series($series: String) {
-    allMarkdownRemark(filter: { frontmatter: { series: { regex: $series } } }) {
+    allMarkdownRemark(
+      filter: { frontmatter: { series: { regex: $series } } }
+      sort: { frontmatter: { publishedAt: ASC } }
+    ) {
+      edges {
+        node {
+          id
+          excerpt
+          frontmatter {
+            title
+            type
+            tagList
+            publishedAt
+            coverImg
+            series
+          }
+        }
+      }
+    }
+    allBlogPost(
+      filter: { frontmatter: { series: { regex: $series } } }
+      sort: { frontmatter: { publishedAt: ASC } }
+    ) {
       edges {
         node {
           id

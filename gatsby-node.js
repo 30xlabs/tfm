@@ -7,6 +7,12 @@
 const { defaultTo, sum, map, prop } = require("ramda")
 const tagColorsData = require("./src/data/tag-colors")
 
+//Services
+const {
+  fetchArticle,
+  fetchArticlesFromDevTo,
+} = require("./src/services/articles")
+
 function capitalizeAndReplace(text) {
   // Split the text by hyphens, capitalize each word, and join them with spaces
   const words = text
@@ -17,9 +23,20 @@ function capitalizeAndReplace(text) {
 }
 
 async function getSeriesList(graphql) {
-  const { data } = await graphql(`
+  const {
+    data: { allMarkdownRemark, allBlogPost },
+  } = await graphql(`
     query {
       allMarkdownRemark(filter: { frontmatter: { series: { ne: null } } }) {
+        group(field: { frontmatter: { series: SELECT } }) {
+          fieldValue
+          totalCount
+          nodes {
+            timeToRead
+          }
+        }
+      }
+      allBlogPost(filter: { frontmatter: { series: { ne: null } } }) {
         group(field: { frontmatter: { series: SELECT } }) {
           fieldValue
           totalCount
@@ -31,7 +48,7 @@ async function getSeriesList(graphql) {
     }
   `)
 
-  const seriesData = data.allMarkdownRemark.group
+  const seriesData = [...allMarkdownRemark.group, ...allBlogPost.group]
   const seriesMap = new Map()
 
   seriesData.forEach(element => {
@@ -80,7 +97,7 @@ exports.createPages = async ({ actions, graphql }) => {
   })
 
   const {
-    data: { allMarkdownRemark },
+    data: { allMarkdownRemark, allBlogPost },
   } = await graphql(`
     query {
       allMarkdownRemark(sort: { frontmatter: { publishedAt: ASC } }) {
@@ -88,9 +105,14 @@ exports.createPages = async ({ actions, graphql }) => {
           id
         }
       }
+      allBlogPost(sort: { frontmatter: { publishedAt: ASC } }) {
+        nodes {
+          id
+        }
+      }
     }
   `)
-  const articles = allMarkdownRemark.nodes
+  const articles = [...allMarkdownRemark.nodes, ...allBlogPost.nodes]
 
   articles.forEach((article, index) => {
     const previousPostId = index === 0 ? null : articles[index - 1].id
@@ -122,7 +144,11 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 }
 
-exports.sourceNodes = ({ actions, createContentDigest }) => {
+exports.sourceNodes = async ({
+  actions,
+  createContentDigest,
+  createNodeId,
+}) => {
   const { createNode } = actions
   const tagsList = Object.keys(tagColorsData)
 
@@ -141,4 +167,73 @@ exports.sourceNodes = ({ actions, createContentDigest }) => {
 
     createNode(node)
   })
+
+  const response = await fetchArticlesFromDevTo()
+  const articles = response.data
+
+  for (let i = 0; i < articles.length; i++) {
+    const post = articles[i]
+    const { data: postInfo } = await fetchArticle(post.id)
+    const frontMatter = frontmatterStringToJson(postInfo?.body_markdown)
+    const node = {
+      id: createNodeId(post.id),
+      parent: null,
+      children: [],
+      excerpt: post.description,
+      html: postInfo.body_html,
+      rawMarkdownBody: postInfo.body_markdown,
+      timeToRead: postInfo.reading_time_minutes,
+      frontmatter: {
+        series: parseStringToArray(frontMatter.series),
+        title: post.title,
+        tagList: post.tag_list,
+        publishedAt: postInfo.readable_publish_date,
+        coverImg: post.cover_image,
+        type: frontMatter.series ? ["ARTICLE", "SERIES"] : ["ARTICLE"],
+      },
+      internal: {
+        type: "BlogPost", // The type you'll query for in GraphQL
+        contentDigest: createContentDigest(post),
+      },
+    }
+    createNode(node)
+  }
+}
+
+function frontmatterStringToJson(frontmatterString = "") {
+  const frontmatterLines = frontmatterString.split("\n")
+  const frontmatterJson = {}
+
+  // Parse frontmatter lines until the first occurrence
+  let firstFrontmatterFound = false
+  frontmatterLines.forEach(line => {
+    if (line === "---" && !firstFrontmatterFound) {
+      firstFrontmatterFound = true
+    } else if (firstFrontmatterFound) {
+      const [key, value] = line.split(":")
+      if (key && value) {
+        const trimmedKey = key.trim()
+        const trimmedValue = value.trim()
+        frontmatterJson[trimmedKey] = trimmedValue
+      }
+    }
+  })
+
+  return frontmatterJson
+}
+
+function parseStringToArray(inputString) {
+  if (!inputString) return null
+  try {
+    // Remove square brackets and split by comma
+    const array = inputString
+      .replace(/^\[|\]$/g, "")
+      .split(",")
+      .map(item => item.trim())
+
+    return Array.isArray(array) ? array : []
+  } catch (error) {
+    console.error("Error parsing the string to array:", error.message)
+    return []
+  }
 }

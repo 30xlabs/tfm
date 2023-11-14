@@ -8,3 +8,8 @@ coverImg: "https://png.pngtree.com/png-vector/20220810/ourmid/pngtree-blogging-c
 ---
 
 JS blog
+
+```javascript
+const x = 3
+console.log(x)
+```

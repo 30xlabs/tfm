@@ -4,7 +4,7 @@ publishedAt: 2021-06-08T17:10:47.741Z
 tagList: [html, javascript, css, webdev]
 type: [ARTICLE]
 coverImg: ""
-series: [js, React, react]
+series: [Javascript, React, react]
 ---
 
 JS blog

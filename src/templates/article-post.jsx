@@ -3,24 +3,63 @@ import React, { memo } from "react"
 //hooks
 import { graphql, Link } from "gatsby"
 
-//hooks
-import { purifyHtml } from "../utils"
-
 //Components
 import { Box, Container, Text } from "theme-ui"
 import TagList from "../components/tag-list"
 import ProfileCard from "../components/profile-card"
 import { MainImage } from "gatsby-plugin-image"
 import Seo from "../components/seo"
+import Markdown from "markdown-to-jsx"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { removeFrontMatter } from "../utils"
 
-const BlogPost = ({ data: { markdownRemark, previous, next } }) => {
+const CodeBlock = ({ children, className }) => {
+  const language = className?.split("-")[1]
+  // if (!className) return <pre style={{ display: "inline" }}>{children}</pre>
+  const customStyle = !className
+    ? {
+        display: "inline",
+        padding: 2,
+        margin: 0,
+      }
+    : {}
+  return (
+    <SyntaxHighlighter
+      customStyle={customStyle}
+      language={language}
+      style={dracula}
+    >
+      {children}
+    </SyntaxHighlighter>
+  )
+}
+
+const markdownOptions = {
+  overrides: {
+    code: CodeBlock,
+  },
+}
+
+const BlogPost = ({ data }) => {
+  const {
+    markdownRemark,
+    previousMarkdown,
+    nextMarkdown,
+    blogPost,
+    previousBlogPost,
+    nextBlogPost,
+  } = data
+  console.log(data)
   const {
     id,
-    html,
+    rawMarkdownBody,
     timeToRead,
     frontmatter: { title, publishedAt, coverImg, tagList },
-  } = markdownRemark
+  } = markdownRemark || blogPost
 
+  const previous = previousMarkdown || previousBlogPost
+  const next = nextMarkdown || nextBlogPost
   return (
     <section>
       <Seo
@@ -37,13 +76,20 @@ const BlogPost = ({ data: { markdownRemark, previous, next } }) => {
               marginTop: ["0px", "36px", "48px"],
               display: "flex",
               flexDirection: "column",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
             }}
-            className="neumorphic variation2"
+            // className="neumorphic variation2"
           >
             {coverImg && (
               <MainImage
                 src={coverImg}
-                style={{ objectFit: "cover" }}
+                style={{
+                  objectFit: "cover",
+                  borderTopLeftRadius: 20,
+                  borderTopRightRadius: 20,
+                }}
                 width={"100%"}
                 height={"340px"}
                 alt={title}
@@ -71,10 +117,11 @@ const BlogPost = ({ data: { markdownRemark, previous, next } }) => {
 
               <TagList tags={tagList} />
 
-              <Box
-                sx={{ p: 2 }}
-                dangerouslySetInnerHTML={{ __html: purifyHtml(html) }}
-              />
+              <Box sx={{ p: 2 }}>
+                <Markdown options={markdownOptions}>
+                  {removeFrontMatter(rawMarkdownBody)}
+                </Markdown>
+              </Box>
             </Container>
           </Box>
         </article>
@@ -157,19 +204,45 @@ export const query = graphql`
         tagList
         title
       }
-      html
+      timeToRead
+      rawMarkdownBody
+    }
+    blogPost(id: { eq: $id }) {
+      id
+      excerpt
+      frontmatter {
+        coverImg
+        publishedAt
+        tagList
+        title
+      }
+      rawMarkdownBody
       timeToRead
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
+    previousMarkdown: markdownRemark(id: { eq: $previousPostId }) {
       id
       excerpt(pruneLength: 160)
       frontmatter {
         title
       }
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
+    previousBlogPost: blogPost(id: { eq: $previousPostId }) {
+      id
+      excerpt
+      frontmatter {
+        title
+      }
+    }
+    nextMarkdown: markdownRemark(id: { eq: $nextPostId }) {
       id
       excerpt(pruneLength: 160)
+      frontmatter {
+        title
+      }
+    }
+    nextBlogPost: blogPost(id: { eq: $nextPostId }) {
+      id
+      excerpt
       frontmatter {
         title
       }
