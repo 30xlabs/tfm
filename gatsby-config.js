@@ -110,8 +110,6 @@ module.exports = {
                     { "content:encoded": node.html, tags: node.tags },
                   ],
                 })
-
-                console.log(x)
                 return x
               })
             },

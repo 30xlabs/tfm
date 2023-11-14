@@ -50,7 +50,6 @@ const BlogPost = ({ data }) => {
     previousBlogPost,
     nextBlogPost,
   } = data
-  console.log(data)
   const {
     id,
     rawMarkdownBody,

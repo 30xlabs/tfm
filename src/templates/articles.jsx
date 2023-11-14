@@ -8,7 +8,11 @@ import ArticlesList from "../components/articles-list"
 import { graphql } from "gatsby"
 
 //utils
-import { getArticleData, transformArticleData } from "../utils"
+import {
+  getArticleData,
+  sortByDateInDesc,
+  transformArticleData,
+} from "../utils"
 
 const Articles = ({ data }) => {
   const articleData = getArticleData(data)
@@ -16,7 +20,7 @@ const Articles = ({ data }) => {
 
   return (
     <Box sx={{ width: ["90%", "75%", "60%"], margin: "auto" }}>
-      <ArticlesList items={items} />
+      <ArticlesList items={items.sort(sortByDateInDesc)} />
     </Box>
   )
 }
@@ -27,7 +31,7 @@ export const query = graphql`
   query Articles($type: [String]!) {
     allMarkdownRemark(
       filter: { frontmatter: { type: { in: $type } } }
-      sort: { frontmatter: { publishedAt: ASC } }
+      sort: { frontmatter: { publishedAt: DESC } }
     ) {
       edges {
         node {
@@ -45,7 +49,7 @@ export const query = graphql`
     }
     allBlogPost(
       filter: { frontmatter: { type: { in: $type } } }
-      sort: { frontmatter: { publishedAt: ASC } }
+      sort: { frontmatter: { publishedAt: DESC } }
     ) {
       edges {
         node {

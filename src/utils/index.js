@@ -96,3 +96,6 @@ export function parseStringToArray(inputString) {
     return []
   }
 }
+
+export const sortByDateInDesc = (a, b) =>
+  new Date(b.publishedAt) - new Date(a.publishedAt)

@@ -100,19 +100,21 @@ exports.createPages = async ({ actions, graphql }) => {
     data: { allMarkdownRemark, allBlogPost },
   } = await graphql(`
     query {
-      allMarkdownRemark(sort: { frontmatter: { publishedAt: ASC } }) {
+      allMarkdownRemark(sort: { frontmatter: { publishedAt: DESC } }) {
         nodes {
           id
         }
       }
-      allBlogPost(sort: { frontmatter: { publishedAt: ASC } }) {
+      allBlogPost(sort: { frontmatter: { publishedAt: DESC } }) {
         nodes {
           id
         }
       }
     }
   `)
-  const articles = [...allMarkdownRemark.nodes, ...allBlogPost.nodes]
+  const articles = [...allMarkdownRemark.nodes, ...allBlogPost.nodes].sort(
+    sortByDateInDesc,
+  )
 
   articles.forEach((article, index) => {
     const previousPostId = index === 0 ? null : articles[index - 1].id
@@ -187,7 +189,7 @@ exports.sourceNodes = async ({
         series: parseStringToArray(frontMatter.series),
         title: post.title,
         tagList: post.tag_list,
-        publishedAt: postInfo.readable_publish_date,
+        publishedAt: postInfo.published_timestamp,
         coverImg: post.cover_image,
         type: frontMatter.series ? ["ARTICLE", "SERIES"] : ["ARTICLE"],
       },
@@ -237,3 +239,6 @@ function parseStringToArray(inputString) {
     return []
   }
 }
+
+const sortByDateInDesc = (a, b) =>
+  new Date(b.publishedAt) - new Date(a.publishedAt)

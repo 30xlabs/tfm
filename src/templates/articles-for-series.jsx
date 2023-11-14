@@ -34,7 +34,7 @@ export const query = graphql`
   query Series($series: String) {
     allMarkdownRemark(
       filter: { frontmatter: { series: { regex: $series } } }
-      sort: { frontmatter: { publishedAt: ASC } }
+      sort: { frontmatter: { publishedAt: DESC } }
     ) {
       edges {
         node {
@@ -53,7 +53,7 @@ export const query = graphql`
     }
     allBlogPost(
       filter: { frontmatter: { series: { regex: $series } } }
-      sort: { frontmatter: { publishedAt: ASC } }
+      sort: { frontmatter: { publishedAt: DESC } }
     ) {
       edges {
         node {
