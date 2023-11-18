@@ -1,10 +1,11 @@
+import { navigate } from "gatsby-link"
 import React, { memo } from "react"
 
 //Components
 import { Heading, Text } from "theme-ui"
 
 const AppLogo = memo(({ title }) => (
-  <Heading>
+  <Heading onClick={() => navigate("https://thefrontendmaster.com")}>
     {title.split(" ").map(word => (
       <span key={word}>
         <Text

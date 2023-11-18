@@ -8,6 +8,10 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+  },
   siteMetadata: {
     title: `The Frontend Master`,
     description: `Hello, Welcome to TFM - The Frontend Master`,
