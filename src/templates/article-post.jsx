@@ -16,12 +16,12 @@ import { removeFrontMatter } from "../utils"
 
 const CodeBlock = ({ children, className }) => {
   const language = className?.split("-")[1]
-  // if (!className) return <pre style={{ display: "inline" }}>{children}</pre>
   const customStyle = !className
     ? {
         display: "inline",
         padding: 2,
         margin: 0,
+        fontSize: "12px",
       }
     : {}
   return (

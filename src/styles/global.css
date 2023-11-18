@@ -142,3 +142,7 @@ button {
 .txt-decoration-none {
   text-decoration: none;
 }
+
+article img {
+  width: 100%;
+}
