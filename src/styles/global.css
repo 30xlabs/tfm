@@ -80,7 +80,8 @@
   }
 
   .nav-item {
-    margin-top: 8px;
+    display: inline-block;
+    margin-top: 4px;
   }
 }
 
