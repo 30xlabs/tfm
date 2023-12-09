@@ -78,6 +78,10 @@
     box-shadow: var(--theme-ui-colors-bs);
     border-radius: 12px;
   }
+
+  .nav-item {
+    margin-top: 8px;
+  }
 }
 
 @media only screen and (min-width: 600px) {

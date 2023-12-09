@@ -16,7 +16,7 @@ import {
 } from "../utils"
 
 const SeriesItem = ({ data, pageContext }) => {
-  const articleData = getArticleData(data)
+    const articleData = getArticleData(data)
   const items = transformArticleData(articleData)
   const seriesName = extractSubstring(pageContext.series)
   return (

@@ -4,7 +4,7 @@ import { navigate } from "gatsby"
 
 export default function Series({ pageContext }) {
   const { seriesList } = pageContext
-  return (
+    return (
     <Box
       sx={{ width: ["90%", "75%", "60%"], margin: "auto", marginTop: "12px" }}
     >

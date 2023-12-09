@@ -1,4 +1,5 @@
 import React, { memo } from "react"
+import { graphql, useStaticQuery } from "gatsby"
 
 //Components
 import { Button, Container, Divider, useColorMode } from "theme-ui"
@@ -7,15 +8,17 @@ import Footer from "./footer"
 import Seo from "../seo"
 
 //Hooks
-import { graphql, useStaticQuery } from "gatsby"
 import { useTheme } from "../../context/ThemeContext"
+
+//HOCs
+import withThemeProvider from "../../hoc/withThemeProvider"
 
 function Layout({ children, location }) {
   const { theme, toggleTheme } = useTheme()
   const [, setColorMode] = useColorMode()
-
+  
   const switchTheme = () => {
-    toggleTheme()
+        toggleTheme()
     setColorMode(theme || "dark")
   }
 
@@ -76,4 +79,4 @@ function Layout({ children, location }) {
   )
 }
 
-export default memo(Layout)
+export default memo(withThemeProvider(Layout))

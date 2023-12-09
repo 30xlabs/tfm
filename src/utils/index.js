@@ -99,3 +99,7 @@ export function parseStringToArray(inputString) {
 
 export const sortByDateInDesc = (a, b) =>
   new Date(b.publishedAt) - new Date(a.publishedAt)
+
+export const logEvent = () => {
+  console.log(process.env)
+}

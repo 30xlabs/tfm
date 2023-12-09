@@ -11,6 +11,8 @@ import { MainImage } from "gatsby-plugin-image"
 import Seo from "../components/seo"
 import Markdown from "markdown-to-jsx"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+
+//Helpers
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { removeFrontMatter } from "../utils"
 
@@ -42,7 +44,7 @@ const markdownOptions = {
 }
 
 const BlogPost = ({ data }) => {
-  const {
+    const {
     markdownRemark,
     previousMarkdown,
     nextMarkdown,
