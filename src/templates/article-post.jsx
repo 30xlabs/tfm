@@ -94,6 +94,7 @@ const BlogPost = ({ data }) => {
                 width={"100%"}
                 height={"340px"}
                 alt={title}
+                className="main-img"
               />
             )}
             <Container sx={{ width: "100%", p: 4 }} key={id}>

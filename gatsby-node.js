@@ -13,6 +13,10 @@ const {
   fetchArticlesFromDevTo,
 } = require("./src/services/articles")
 
+require("dotenv").config({
+  path: `.env`,
+})
+
 function capitalizeAndReplace(text) {
   // Split the text by hyphens, capitalize each word, and join them with spaces
   const words = text
@@ -129,10 +133,6 @@ exports.createPages = async ({ actions, graphql }) => {
     })
   })
 }
-
-require("dotenv").config({
-  path: `.env`,
-})
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions

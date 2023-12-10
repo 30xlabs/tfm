@@ -16,9 +16,9 @@ import withThemeProvider from "../../hoc/withThemeProvider"
 function Layout({ children, location }) {
   const { theme, toggleTheme } = useTheme()
   const [, setColorMode] = useColorMode()
-  
+
   const switchTheme = () => {
-        toggleTheme()
+    toggleTheme()
     setColorMode(theme || "dark")
   }
 
@@ -48,6 +48,7 @@ function Layout({ children, location }) {
 
   const themeButton = (
     <Button
+      className="theme-button"
       title={`Switch to ${theme === "light" ? "dark" : "light"}`}
       onClick={switchTheme}
     >

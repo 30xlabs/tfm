@@ -4,6 +4,9 @@ import * as sanitizeHtml from "sanitize-html"
 import db from "../config/firebase"
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore"
 
+//utils
+import { prop, toLower, trim, uniqBy, compose } from "ramda"
+
 export const purifyHtml = str => sanitizeHtml(str)
 
 export function removeTags(str) {
@@ -40,10 +43,13 @@ export const createNode = source =>
     body: node.excerpt,
   }))
 
-export const getArticleData = data => [
-  ...createNode(data.allMarkdownRemark),
-  ...createNode(data.allBlogPost),
-]
+const uniqByTitle = uniqBy(compose(trim, toLower, prop("title")))
+
+export const getArticleData = data =>
+  uniqByTitle([
+    ...createNode(data.allMarkdownRemark),
+    ...createNode(data.allBlogPost),
+  ])
 
 export const transformArticleData = data =>
   data.map(item => ({

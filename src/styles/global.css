@@ -79,9 +79,15 @@
     border-radius: 12px;
   }
 
-  .nav-item {
+  .nav-item,
+  .theme-button {
     display: inline-block;
     margin-top: 4px;
+  }
+
+  .main-img {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 }
 
