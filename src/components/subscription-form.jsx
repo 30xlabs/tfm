@@ -40,7 +40,13 @@ function SubscriptionForm() {
   }
 
   return (
-    <Box as="form" method="POST" onSubmit={handleSubscription}>
+    <Box
+      as="form"
+      method="POST"
+      data-netlify="true"
+      netlify
+      onSubmit={handleSubscription}
+    >
       <Label htmlFor="name">Name</Label>
       <Input
         name="name"
