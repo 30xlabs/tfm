@@ -36,11 +36,9 @@ export default async function handler(req, res) {
   if (eventType === "push") {
     const branch = payload.ref.replace("refs/heads/", "")
 
-    // Check if the push event is for the main branch (you can modify as needed)
     if (branch === "release") {
       console.log(`Push event on the main branch.`)
 
-      // Iterate over commits
       payload.commits.forEach(commit => {
         const authorName = commit.author.name
         const commitMessage = commit.message
