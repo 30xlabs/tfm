@@ -1,3 +1,5 @@
+import { formatDate } from "../utils"
+
 const axios = require("axios")
 
 const url = process.env.GATSBY_SLACK_WEBHOOK
@@ -42,7 +44,8 @@ export default async function handler(req, res) {
       payload.commits.forEach(commit => {
         const authorName = commit.author.name
         const commitMessage = commit.message
-        message += `Author: ${authorName}\nCommit Message: ${commitMessage}\n`
+        const time = formatDate(commit.timestamp)
+        message += `Author: ${authorName}\nCommit Message: ${commitMessage}\nTime: ${time}\n`
       })
     }
   }
