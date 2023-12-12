@@ -44,6 +44,7 @@ function SubscriptionForm() {
       as="form"
       method="POST"
       data-netlify="true"
+      name="news-letter"
       onSubmit={handleSubscription}
     >
       <Label htmlFor="name">Name</Label>
