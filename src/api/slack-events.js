@@ -1,3 +1,5 @@
+import { formatDate } from "../utils"
+
 const axios = require("axios")
 
 const url = process.env.GATSBY_SLACK_WEBHOOK
@@ -12,25 +14,24 @@ const formatMessage = ({
   published_at,
   commit_url,
   links,
+  manual_deploy,
 }) => {
   const isSuccess = !error_message
 
   const emoji = isSuccess ? "✅" : "❌"
-  const status = isSuccess ? "successful" : "failed"
-
+  const buildStatus = isSuccess ? "🔴" : "🟢"
   return `
-    ✨ *Deployment Update* ✨
+    ✨ *Deployment Update (${manual_deploy ? "Manual" : "Auto"})* ✨
 
-    *Project:* ${title}
-    *Committer:* ${committer}
-    *Build Status:* ${emoji} ${status}
-    *Deployed At:* ${created_at}
-    *Last Update:* ${updated_at}
-    *Deployment Time:* ${deploy_time}
-    *Published At:* ${published_at}
-    *Commit URL:* ${commit_url}
-
-    🚀 *Preview Link:* [Preview](${links.permalink})
+    🚀 *Project:* ${title}
+    🧑🏻‍💻 *Committer:* ${committer}
+    ${buildStatus} *Build Status:* ${emoji}
+    ⏱️ *Deployed At:* ${formatDate(created_at)}
+    ⏱️ *Last Update:* ${formatDate(updated_at)}
+    ⌛️ *Deployment Time:* ${deploy_time} seconds
+    📝 *Published At:* ${formatDate(published_at)}
+    📂 *Commit URL:* <${commit_url}| Click here for commit url>
+    🚀 *Preview Link:* <${links.permalink} | Click here for review>
   `
 }
 
@@ -39,7 +40,7 @@ const notifySlack = json => {
 
   const payload = {
     channel: "#tfm-build",
-    username: "webhookbot",
+    username: json?.committer,
     text: formatMessage(json),
     icon_emoji: isSuccess ? ":ghost:" : ":siren:",
   }

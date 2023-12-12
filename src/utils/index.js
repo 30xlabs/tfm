@@ -114,3 +114,41 @@ export const logEvent = (event, payload) => {
   if (isProd) fbLogEvent(event, payload)
   else console.log(event, payload)
 }
+
+export const formatDate = dateString => {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+    timeZone: "IST",
+  }
+
+  const formattedDate = new Date(dateString).toLocaleString("en-US", options)
+
+  return formattedDate.replace(/(\d+)(st|nd|rd|th)/, (_, number, suffix) => {
+    const num = parseInt(number, 10)
+    if (num >= 11 && num <= 13) {
+      suffix = "th"
+    } else {
+      switch (num % 10) {
+        case 1:
+          suffix = "st"
+          break
+        case 2:
+          suffix = "nd"
+          break
+        case 3:
+          suffix = "rd"
+          break
+        default:
+          suffix = "th"
+          break
+      }
+    }
+    return `${number}${suffix}`
+  })
+}
