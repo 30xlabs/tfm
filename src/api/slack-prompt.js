@@ -8,8 +8,8 @@ const notifySlack = message => {
   const payload = {
     channel: "#tfm-build",
     username: "saketh30x",
-    text: `${message}\n\n<${process.env.GATSBY_MANUAL_DEPLOY_URL}| Deploy>`,
     icon_emoji: ":ghost:",
+    text: `${message}\n<${process.env.GATSBY_MANUAL_DEPLOY_URL}| Deploy>`,
   }
 
   return axios
@@ -43,7 +43,10 @@ export default async function handler(req, res) {
         const authorName = commit.author.name
         const commitMessage = commit.message
         const time = formatDate(commit.timestamp)
-        message += `Author: ${authorName}\nCommit Message: ${commitMessage}\nTime: ${time}\n`
+        message += `
+        🧑🏻‍💻 *Author:* ${authorName}\n
+        🚀 *Commit:* ${commitMessage}\n
+        ⏱️ *Time:* ${time}\n`
       })
     }
   }

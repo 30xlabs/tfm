@@ -19,11 +19,11 @@ const formatMessage = ({
   const isSuccess = !error_message
 
   const emoji = isSuccess ? "✅" : "❌"
-  const buildStatus = isSuccess ? "🔴" : "🟢"
+  const buildStatus = !isSuccess ? "🔴" : "🟢"
   return `
     ✨ *Deployment Update (${manual_deploy ? "Manual" : "Auto"})* ✨
 
-    🚀 *Project:* ${title}
+    🚀 *Commit:* ${title}
     🧑🏻‍💻 *Committer:* ${committer}
     ${buildStatus} *Build Status:* ${emoji}
     ⏱️ *Deployed At:* ${formatDate(created_at)}
