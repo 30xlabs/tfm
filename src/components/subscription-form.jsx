@@ -44,7 +44,6 @@ function SubscriptionForm() {
       as="form"
       method="POST"
       data-netlify="true"
-      netlify
       onSubmit={handleSubscription}
     >
       <Label htmlFor="name">Name</Label>
@@ -75,6 +74,7 @@ function SubscriptionForm() {
         className="neumorphic variation2"
         variant="secondary"
         bg="accent"
+        type="submit"
         style={{ width: "100%" }}
       >
         SUBSCRIBE
