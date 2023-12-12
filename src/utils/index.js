@@ -107,10 +107,10 @@ export function parseStringToArray(inputString) {
 export const sortByDateInDesc = (a, b) =>
   new Date(b.publishedAt) - new Date(a.publishedAt)
 
-const checkIsEnvProd = pathEq("production", ["env", "GATSBY_ENV"])
+const checkIsEnvProd = pathEq("production", ["GATSBY_ENV"])
 
 export const logEvent = (event, payload) => {
-  const isProd = checkIsEnvProd(process)
+  const isProd = checkIsEnvProd(process.env)
   if (isProd) fbLogEvent(event, payload)
   else console.log(event, payload)
 }

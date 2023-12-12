@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { getAnalytics } from "firebase/analytics"
 
 const firebaseConfig = {
   apiKey: process.env.GATSBY_FIREBASE_API_KEY,
@@ -15,6 +14,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 
 const db = getFirestore(app)
-getAnalytics(app)
 
 export default db
