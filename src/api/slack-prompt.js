@@ -43,7 +43,7 @@ export default async function handler(req, res) {
         message += `
         🧑🏻‍💻 *Author:* ${authorName}\n
         🚀 *Commit:* ${commitMessage}\n
-        ⏱️ *Time:* ${time}\n`
+        ⏱️ *Time:* ${time}`
       })
     }
   }
