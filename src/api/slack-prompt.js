@@ -48,8 +48,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const resp = await notifySlack(message)
-    res.status(200).send(resp)
+    await notifySlack(message)
+    res.status(202).send("Accepted")
   } catch (err) {
     console.log(err)
     res.status(500).send("Internal server error")
