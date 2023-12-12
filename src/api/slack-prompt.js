@@ -5,7 +5,7 @@ const url = process.env.GATSBY_SLACK_WEBHOOK
 const notifySlack = json => {
   const payload = {
     channel: "#tfm-build",
-    username: json?.committer,
+    username: "saketh30x",
     text: `<${process.env.GATSBY_MANUAL_DEPLOY_URL}| Deploy>`,
     icon_emoji: ":ghost:",
   }
