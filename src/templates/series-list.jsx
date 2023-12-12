@@ -10,7 +10,7 @@ import usePageTiming from "../hooks/usePageTiming"
 
 export default function Series({ pageContext }) {
   useEffect(() => {
-    logEvent("Opened series list page")
+    logEvent("opened_series_list_page")
   }, [])
   usePageTiming()
   const { seriesList } = pageContext

@@ -64,8 +64,8 @@ const BlogPost = ({ data }) => {
 
   usePageTiming()
   useEffect(() => {
-    logEvent("Opened article", { article: title })
-  }, [])
+    logEvent("opened_article", { article: title })
+  }, [title])
 
   const previous = previousMarkdown || previousBlogPost
   const next = nextMarkdown || nextBlogPost
@@ -148,7 +148,7 @@ const BlogPost = ({ data }) => {
             <Link
               hidden={!previous?.id}
               onClick={() =>
-                logEvent("Clicked previous", {
+                logEvent("clicked_previous", {
                   title: previous?.frontmatter?.title,
                 })
               }
@@ -172,7 +172,7 @@ const BlogPost = ({ data }) => {
             <Link
               hidden={!next?.id}
               onClick={() =>
-                logEvent("Clicked next", {
+                logEvent("clicked_next", {
                   title: next?.frontmatter?.title,
                 })
               }

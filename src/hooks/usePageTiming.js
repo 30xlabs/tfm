@@ -10,7 +10,7 @@ export default function usePageTiming() {
     const handleUnload = () => {
       const pageUnloadTime = performance.now()
       const timeSpentOnPage = pageUnloadTime - pageLoadTime
-      logEvent("Time spent on page", {
+      logEvent("time_spent_on_page", {
         time_spent: timeSpentOnPage,
         page_title: document.title,
       })

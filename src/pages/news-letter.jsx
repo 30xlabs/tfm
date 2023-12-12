@@ -9,7 +9,7 @@ import { logEvent } from "../utils"
 
 const NewsLetter = () => {
   useEffect(() => {
-    logEvent("Opened news-letter")
+    logEvent("opened_news_letter")
   }, [])
 
   return (

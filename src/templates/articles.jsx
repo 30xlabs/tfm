@@ -21,7 +21,7 @@ import usePageTiming from "../hooks/usePageTiming"
 const Articles = ({ data }) => {
   usePageTiming()
   useEffect(() => {
-    logEvent("Opened articles list page")
+    logEvent("opened_articles_list_page")
   }, [])
   const articleData = getArticleData(data)
   const items = transformArticleData(articleData)

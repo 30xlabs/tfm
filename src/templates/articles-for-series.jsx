@@ -21,8 +21,8 @@ const SeriesItem = ({ data, pageContext }) => {
   const items = transformArticleData(articleData)
   const seriesName = extractSubstring(pageContext.series)
   useEffect(() => {
-    logEvent("Opened series", { seriesName })
-  }, [])
+    logEvent("opened_series", { seriesName })
+  }, [seriesName])
   return (
     <Seo title={seriesName} description={`Series - ${seriesName}`}>
       <Box sx={{ width: ["90%", "75%", "60%"], margin: "auto" }}>

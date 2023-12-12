@@ -35,7 +35,7 @@ function SubscriptionForm() {
         errorMsg.current = `Something went wrong`
       }
     }
-    logEvent("Submitted news-letter")
+    logEvent("submitted_news_letter")
     saveToFirestore(name, email)
   }
 
