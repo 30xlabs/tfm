@@ -32,13 +32,10 @@ export default async function handler(req, res) {
   const eventType = req.headers["x-github-event"]
   const payload = req.body
   let message = ""
-  console.log(req.body)
   if (eventType === "push") {
     const branch = payload.ref.replace("refs/heads/", "")
 
     if (branch === "release") {
-      console.log(`Push event on the main branch.`)
-
       payload.commits.forEach(commit => {
         const authorName = commit.author.name
         const commitMessage = commit.message
