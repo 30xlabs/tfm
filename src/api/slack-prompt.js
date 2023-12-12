@@ -2,11 +2,11 @@ const axios = require("axios")
 
 const url = process.env.GATSBY_SLACK_WEBHOOK
 
-const notifySlack = json => {
+const notifySlack = message => {
   const payload = {
     channel: "#tfm-build",
-    username: json?.committer || "saketh30x",
-    text: `<${process.env.GATSBY_MANUAL_DEPLOY_URL}| Deploy>`,
+    username: "saketh30x",
+    text: `${message}\n\n<${process.env.GATSBY_MANUAL_DEPLOY_URL}| Deploy>`,
     icon_emoji: ":ghost:",
   }
 
@@ -27,9 +27,28 @@ const notifySlack = json => {
 
 export default async function handler(req, res) {
   if (req.method !== `POST`) return res.status(405).send("Invalid HTTP method")
-  const body = req.body
+  const eventType = req.headers["x-github-event"]
+  const payload = req.body
+  let message = ""
+
+  if (eventType === "push") {
+    const branch = payload.ref.replace("refs/heads/", "")
+
+    // Check if the push event is for the main branch (you can modify as needed)
+    if (branch === "release") {
+      console.log(`Push event on the main branch.`)
+
+      // Iterate over commits
+      payload.commits.forEach(commit => {
+        const authorName = commit.author.name
+        const commitMessage = commit.message
+        message += `Author: ${authorName}\nCommit Message: ${commitMessage}\n`
+      })
+    }
+  }
+
   try {
-    const resp = await notifySlack(body)
+    const resp = await notifySlack(message)
     res.status(200).send(resp)
   } catch (err) {
     console.log(err)
