@@ -4,12 +4,12 @@ const axios = require("axios")
 
 const url = process.env.GATSBY_SLACK_WEBHOOK
 
-const notifySlack = message => {
+const notifySlack = (message, branch) => {
   const payload = {
     channel: "#tfm-build",
     username: "saketh30x",
     icon_emoji: ":ghost:",
-    text: `${message}\n<${process.env.GATSBY_MANUAL_DEPLOY_URL}| Deploy>`,
+    text: `${message}\n<${process.env.GATSBY_MANUAL_DEPLOY_URL}?trigger_branch=${branch}&trigger_title=triggered+by+manual+button&clear_cache=true| Deploy>`,
   }
 
   return axios
@@ -32,10 +32,9 @@ export default async function handler(req, res) {
   const eventType = req.headers["x-github-event"]
   const payload = req.body
   let message = ""
+  const branch = payload.ref.replace("refs/heads/", "")
   if (eventType === "push") {
-    const branch = payload.ref.replace("refs/heads/", "")
-
-    if (branch === "release") {
+    if (["release", "hotfix", " master", "testing"].includes(branch)) {
       payload.commits.forEach(commit => {
         const authorName = commit.author.name
         const commitMessage = commit.message
@@ -49,7 +48,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    await notifySlack(message)
+    await notifySlack(message, branch)
     res.status(202).send("Accepted")
   } catch (err) {
     console.log(err)
