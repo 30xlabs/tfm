@@ -1,10 +1,17 @@
-import React, { memo } from "react"
+import React, { memo, useEffect } from "react"
 
 //components
 import { Card, Paragraph, Text } from "theme-ui"
 import SubscriptionForm from "../components/subscription-form"
 
+//Utils
+import { logEvent } from "../utils"
+
 const NewsLetter = () => {
+  useEffect(() => {
+    logEvent("Opened news-letter")
+  }, [])
+
   return (
     <Card
       className="neumorphic variation2"

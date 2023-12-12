@@ -4,7 +4,7 @@ import React, { memo, useState, useRef } from "react"
 import { Box, Button, Input, Label, Message } from "theme-ui"
 
 //utils
-import { checkIfEmailExists, insertNewsLetterRecord } from "../utils"
+import { checkIfEmailExists, insertNewsLetterRecord, logEvent } from "../utils"
 
 function SubscriptionForm() {
   const [newsLetterStatus, setNewsLetterStatus] = useState("IDLE")
@@ -35,6 +35,7 @@ function SubscriptionForm() {
         errorMsg.current = `Something went wrong`
       }
     }
+    logEvent("Submitted news-letter")
     saveToFirestore(name, email)
   }
 

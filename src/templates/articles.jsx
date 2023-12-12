@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 //components
 import { Box } from "theme-ui"
@@ -10,11 +10,19 @@ import { graphql } from "gatsby"
 //utils
 import {
   getArticleData,
+  logEvent,
   sortByDateInDesc,
   transformArticleData,
 } from "../utils"
 
+//Hooks
+import usePageTiming from "../hooks/usePageTiming"
+
 const Articles = ({ data }) => {
+  usePageTiming()
+  useEffect(() => {
+    logEvent("Opened articles list page")
+  }, [])
   const articleData = getArticleData(data)
   const items = transformArticleData(articleData)
 

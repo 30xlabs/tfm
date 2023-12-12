@@ -1,10 +1,20 @@
-import React from "react"
-import { Box, Card, Container, Grid, Text } from "theme-ui"
+import React, { useEffect } from "react"
 import { navigate } from "gatsby"
+import { Box, Card, Container, Grid, Text } from "theme-ui"
+
+//Utils
+import { logEvent } from "../utils"
+
+//Hooks
+import usePageTiming from "../hooks/usePageTiming"
 
 export default function Series({ pageContext }) {
+  useEffect(() => {
+    logEvent("Opened series list page")
+  }, [])
+  usePageTiming()
   const { seriesList } = pageContext
-    return (
+  return (
     <Box
       sx={{ width: ["90%", "75%", "60%"], margin: "auto", marginTop: "12px" }}
     >

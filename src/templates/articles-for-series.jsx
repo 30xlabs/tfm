@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import React, { memo, useEffect } from "react"
 
 //Component
 import { Box } from "theme-ui"
@@ -12,13 +12,17 @@ import Seo from "../components/seo"
 import {
   extractSubstring,
   getArticleData,
+  logEvent,
   transformArticleData,
 } from "../utils"
 
 const SeriesItem = ({ data, pageContext }) => {
-    const articleData = getArticleData(data)
+  const articleData = getArticleData(data)
   const items = transformArticleData(articleData)
   const seriesName = extractSubstring(pageContext.series)
+  useEffect(() => {
+    logEvent("Opened series", { seriesName })
+  }, [])
   return (
     <Seo title={seriesName} description={`Series - ${seriesName}`}>
       <Box sx={{ width: ["90%", "75%", "60%"], margin: "auto" }}>

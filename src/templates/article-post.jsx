@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import React, { memo, useEffect } from "react"
 
 //hooks
 import { graphql, Link } from "gatsby"
@@ -14,7 +14,10 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 
 //Helpers
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism"
-import { removeFrontMatter } from "../utils"
+import { logEvent, removeFrontMatter } from "../utils"
+
+//Hooks
+import usePageTiming from "../hooks/usePageTiming"
 
 const CodeBlock = ({ children, className }) => {
   const language = className?.split("-")[1]
@@ -44,7 +47,7 @@ const markdownOptions = {
 }
 
 const BlogPost = ({ data }) => {
-    const {
+  const {
     markdownRemark,
     previousMarkdown,
     nextMarkdown,
@@ -58,6 +61,11 @@ const BlogPost = ({ data }) => {
     timeToRead,
     frontmatter: { title, publishedAt, coverImg, tagList },
   } = markdownRemark || blogPost
+
+  usePageTiming()
+  useEffect(() => {
+    logEvent("Opened article", { article: title })
+  }, [])
 
   const previous = previousMarkdown || previousBlogPost
   const next = nextMarkdown || nextBlogPost
@@ -139,6 +147,11 @@ const BlogPost = ({ data }) => {
           <Container sx={{ width: "40%", marginRight: "10%" }}>
             <Link
               hidden={!previous?.id}
+              onClick={() =>
+                logEvent("Clicked previous", {
+                  title: previous?.frontmatter?.title,
+                })
+              }
               to={`/article/${previous?.id}`}
               className="txt-decoration-none"
             >
@@ -158,6 +171,11 @@ const BlogPost = ({ data }) => {
           <Container sx={{ width: "40%" }}>
             <Link
               hidden={!next?.id}
+              onClick={() =>
+                logEvent("Clicked next", {
+                  title: next?.frontmatter?.title,
+                })
+              }
               to={`/article/${next?.id}`}
               className="txt-decoration-none"
             >
