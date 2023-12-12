@@ -30,7 +30,7 @@ export default async function handler(req, res) {
   const eventType = req.headers["x-github-event"]
   const payload = req.body
   let message = ""
-
+  console.log(req.body)
   if (eventType === "push") {
     const branch = payload.ref.replace("refs/heads/", "")
 
