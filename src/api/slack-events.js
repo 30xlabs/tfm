@@ -2,12 +2,46 @@ const axios = require("axios")
 
 const url = process.env.GATSBY_SLACK_WEBHOOK
 
+const formatMessage = ({
+  committer,
+  title,
+  created_at,
+  error_message,
+  updated_at,
+  deploy_time,
+  published_at,
+  commit_url,
+  links,
+}) => {
+  const isSuccess = !error_message
+
+  const emoji = isSuccess ? "✅" : "❌"
+  const status = isSuccess ? "successful" : "failed"
+
+  return `
+    ✨ *Deployment Update* ✨
+
+    *Project:* ${title}
+    *Committer:* ${committer}
+    *Build Status:* ${emoji} ${status}
+    *Deployed At:* ${created_at}
+    *Last Update:* ${updated_at}
+    *Deployment Time:* ${deploy_time}
+    *Published At:* ${published_at}
+    *Commit URL:* ${commit_url}
+
+    🚀 *Preview Link:* [Preview](${links.permalink})
+  `
+}
+
 const notifySlack = json => {
+  const isSuccess = !json?.error_message
+
   const payload = {
     channel: "#tfm-build",
     username: "webhookbot",
-    text: JSON.stringify(json),
-    icon_emoji: ":ghost:",
+    text: formatMessage(json),
+    icon_emoji: isSuccess ? ":ghost:" : ":siren:",
   }
 
   return axios
