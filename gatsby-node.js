@@ -174,31 +174,33 @@ exports.sourceNodes = async ({
   const articles = response.data
 
   for (let i = 0; i < articles.length; i++) {
-    const post = articles[i]
-    const { data: postInfo } = await fetchArticle(post.id)
-    const frontMatter = frontmatterStringToJson(postInfo?.body_markdown)
-    const node = {
-      id: createNodeId(post.id),
-      parent: null,
-      children: [],
-      excerpt: post.description,
-      html: postInfo.body_html,
-      rawMarkdownBody: postInfo.body_markdown,
-      timeToRead: postInfo.reading_time_minutes,
-      frontmatter: {
-        series: parseStringToArray(frontMatter.series),
-        title: post.title,
-        tagList: post.tag_list,
-        publishedAt: postInfo.published_timestamp,
-        coverImg: post.cover_image,
-        type: frontMatter.series ? ["ARTICLE", "SERIES"] : ["ARTICLE"],
-      },
-      internal: {
-        type: "BlogPost", // The type you'll query for in GraphQL
-        contentDigest: createContentDigest(post),
-      },
-    }
-    createNode(node)
+    setTimeout(async () => {
+      const post = articles[i]
+      const { data: postInfo } = await fetchArticle(post.id)
+      const frontMatter = frontmatterStringToJson(postInfo?.body_markdown)
+      const node = {
+        id: createNodeId(post.id),
+        parent: null,
+        children: [],
+        excerpt: post.description,
+        html: postInfo.body_html,
+        rawMarkdownBody: postInfo.body_markdown,
+        timeToRead: postInfo.reading_time_minutes,
+        frontmatter: {
+          series: parseStringToArray(frontMatter.series),
+          title: post.title,
+          tagList: post.tag_list,
+          publishedAt: postInfo.published_timestamp,
+          coverImg: post.cover_image,
+          type: frontMatter.series ? ["ARTICLE", "SERIES"] : ["ARTICLE"],
+        },
+        internal: {
+          type: "BlogPost", // The type you'll query for in GraphQL
+          contentDigest: createContentDigest(post),
+        },
+      }
+      createNode(node)
+    }, i * 50)
   }
 }
 
