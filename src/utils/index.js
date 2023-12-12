@@ -5,7 +5,8 @@ import db from "../config/firebase"
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore"
 
 //utils
-import { prop, toLower, trim, uniqBy, compose } from "ramda"
+import { prop, toLower, trim, uniqBy, compose, pathEq } from "ramda"
+import { logEvent as fbLogEvent } from "firebase/analytics"
 
 export const purifyHtml = str => sanitizeHtml(str)
 
@@ -106,6 +107,10 @@ export function parseStringToArray(inputString) {
 export const sortByDateInDesc = (a, b) =>
   new Date(b.publishedAt) - new Date(a.publishedAt)
 
-export const logEvent = () => {
-  console.log(process.env)
+const checkIsEnvProd = pathEq("production", ["env", "GATSBY_ENV"])
+
+export const logEvent = (event, payload) => {
+  const isProd = checkIsEnvProd(process)
+  if (isProd) fbLogEvent(event, payload)
+  else console.log(event, payload)
 }
