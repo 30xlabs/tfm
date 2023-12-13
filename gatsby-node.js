@@ -201,7 +201,7 @@ exports.sourceNodes = async ({
       },
     }
     createNode(node)
-    await delay(120)
+    await delay(250)
   }
 }
 

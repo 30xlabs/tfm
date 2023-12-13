@@ -4,12 +4,13 @@ const axios = require("axios")
 
 const url = process.env.GATSBY_SLACK_WEBHOOK
 
-const notifySlack = (message, branch) => {
+const notifySlack = (message, branch = "release") => {
+  const deployUrl = `${process.env.GATSBY_MANUAL_DEPLOY_URL}?trigger_branch=${branch}&trigger_title=triggered+by+manual+button&clear_cache=true`
   const payload = {
     channel: "#tfm-build",
-    username: "saketh30x",
+    username: message,
     icon_emoji: ":ghost:",
-    text: `${message}\n<${process.env.GATSBY_MANUAL_DEPLOY_URL}?trigger_branch=${branch}&trigger_title=triggered+by+manual+button&clear_cache=true | Deploy>`,
+    text: `<${deployUrl} | Deploy>`,
   }
 
   return axios
