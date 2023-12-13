@@ -1,7 +1,7 @@
 ---
 series: [Typescript]
 type: [ARTICLE, SERIES]
-title: TypeScript Unveiled: Navigating the Fundamentals
+title: Navigating the Fundamentals
 publishedAt: 2023-12-14T18:30:00.000Z
 tagList: [typescript, javascript, beginners, webdev]
 coverImg: "https://hackernoon.imgix.net/images/GyReioOm4SYrQtHDFZYR7Ot7i3w1-xu92ixh.jpeg"
